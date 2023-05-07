@@ -1,20 +1,23 @@
-# MantiumCLI2
-
-A Python script to use Mantium, Azure OpenAI, and OpenAI APIs together to generate responses based on user input.
-
-## Setup
-
-1. Clone this repository.
-2. Create a virtual environment: `python -m venv venv`
-3. Activate the virtual environment: `source venv/bin/activate` (Linux/macOS) or `venv\Scripts\activate` (Windows)
-4. Install the required packages: `pip install -r requirements.txt`
-5. Create a `.env` file with the required environment variables (see `.env.sample` for an example).
-6. Run the script: `python app.py`
-
-## Configuration
-
-You can configure the script using the following environment variables in the `.env` file:
-
+# AI Assistant with FastAPI, Azure OpenAI, Mantium, and OpenAI GPT-3  
+  
+This AI Assistant application is built using FastAPI and integrates with Azure OpenAI, Mantium, and OpenAI GPT-3 to generate responses based on user input. The application combines the responses from Mantium and the chosen AI engine (Azure OpenAI or OpenAI GPT-3) to provide the best possible answer.  
+  
+## Features  
+  
+- FastAPI for API and web interface  
+- Integration with Azure OpenAI and OpenAI GPT-3  
+- Fetches data from Mantium  
+- Combines responses from Mantium and the AI engine  
+- Front-end interface to interact with the AI Assistant  
+  
+## Installation  
+  
+1. Clone the repository:  `git clone https://github.com/yourusername/ai-assistant.git`
+`cd ai-assistant`
+1. Create a virtual environment and activate it: `python3 -m venv venv`
+`source venv/bin/activate`
+1. Install the required packages:  `pip install -r requirements.txt`
+1. Create a `.env` file in the root directory of the project and add the following variables:  
 - `API_TYPE`: Either `openai` or `azure`
 - `MANTIUM_APP_ID`: Mantium app ID - you can find this from a deployed plugin
 - `MANTIUM_BEARER_TOKEN`: Your Mantium Bearer Token
@@ -23,19 +26,19 @@ You can configure the script using the following environment variables in the `.
 - `AZURE_OPENAI_ENGINE`: The name of the Azure OpenAI engine (e.g., "gpt-3.5-turbo").
 - `AZURE_OPENAI_API_BASE`: Base URL for the Azure OpenAI API
 
-## Sample .env file:
+Replace the placeholders with your actual API keys and credentials.  
 
-# app config
-API_TYPE= # openai or azure
+1. Run the FastAPI server:  `uvicorn main:app --reload`
+1. Open your browser and navigate to `http://127.0.0.1:8000/` to access the AI Assistant web interface.
 
-# OpenAI API Key  
-OPENAI_API_KEY=sk-xxx
+## Usage  
   
-# Azure-specific settings  
-AZURE_OPENAI_ENGINE=# name of the engine to use
-AZURE_OPENAI_API_KEY=# API key for the Azure OpenAI  
-AZURE_OPENAI_API_BASE=# base URL for the Azure OpenAI API
+1. Select the API type (Azure or OpenAI) from the dropdown menu.  
+2. Fill in the required API keys and credentials for the selected API type and Mantium.  
+3. Enter your question in the "Your Question" field.  
+4. Click "Submit" to generate a response.  
+5. The best response from Mantium and the final response from the AI Assistant will be displayed on the screen.  
   
-# Mantium-specific settings  
-MANTIUM_APP_ID=# Mantium app ID - you can find this from a deployed plugin
-MANTIUM_BEARER_TOKEN=# You can find this by making a request from the plugin screen with devtools open. Look at the payload.
+## License  
+  
+This project is licensed under the MIT License.  
