@@ -1,4 +1,4 @@
-# AI Assistant with FastAPI, Azure OpenAI, Mantium, and OpenAI GPT-3  
+# AI Assistant with FastAPI, Azure OpenAI, Mantium, and OpenAI
   
 This AI Assistant application is built using FastAPI and integrates with Azure OpenAI, Mantium, and OpenAI GPT-3 to generate responses based on user input. The application combines the responses from Mantium and the chosen AI engine (Azure OpenAI or OpenAI GPT-3) to provide the best possible answer.  
   
