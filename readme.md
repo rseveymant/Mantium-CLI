@@ -15,7 +15,27 @@ A Python script to use Mantium, Azure OpenAI, and OpenAI APIs together to genera
 
 You can configure the script using the following environment variables in the `.env` file:
 
-- `MANTIUM_API_KEY`: Your Mantium API key.
+- `API_TYPE`: Either `openai` or `azure`
+- `MANTIUM_APP_ID`: Mantium app ID - you can find this from a deployed plugin
+- `MANTIUM_BEARER_TOKEN`: Your Mantium Bearer Token
 - `OPENAI_API_KEY`: Your OpenAI API key (if using OpenAI).
-- `AZURE_OPENAI_KEY`: Your Azure OpenAI key (if using Azure OpenAI).
+- `AZURE_OPENAI_API_KEY`: Your Azure OpenAI key (if using Azure OpenAI).
 - `AZURE_OPENAI_ENGINE`: The name of the Azure OpenAI engine (e.g., "gpt-3.5-turbo").
+- `AZURE_OPENAI_API_BASE`: Base URL for the Azure OpenAI API
+
+## Sample .env file:
+
+# app config
+API_TYPE= # openai or azure
+
+# OpenAI API Key  
+OPENAI_API_KEY=sk-xxx
+  
+# Azure-specific settings  
+AZURE_OPENAI_ENGINE=# name of the engine to use
+AZURE_OPENAI_API_KEY=# API key for the Azure OpenAI  
+AZURE_OPENAI_API_BASE=# base URL for the Azure OpenAI API
+  
+# Mantium-specific settings  
+MANTIUM_APP_ID=# Mantium app ID - you can find this from a deployed plugin
+MANTIUM_BEARER_TOKEN=# You can find this by making a request from the plugin screen with devtools open. Look at the payload.
