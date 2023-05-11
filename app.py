@@ -1,7 +1,8 @@
 import os  
 from dotenv import load_dotenv  
 from azure_gpt import create_azure_chat_completion  
-from openai_gpt import create_openai_chat_completion  
+from openai_gpt import create_openai_chat_completion
+from anthropic_ai import create_anthropic_chat_completion
 from mantium_data import fetch_mantium_data
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity 
@@ -33,24 +34,27 @@ def combined_scores(user_input, mantium_responses, mantium_scores):
   
 def generate_response(query, api_type, mantium_data):
     conversation = [
-        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "system", "content": "You are a helpful assistant."}, 
         {"role": "user", "content": query},
     ]
-
+    
     engine = os.getenv("AZURE_OPENAI_ENGINE") if api_type == "azure" else "gpt-3.5-turbo"
     
     mantium_responses = mantium_data
-    mantium_scores = [1 for _ in range(len(mantium_responses))]  # Assuming equal weight for all responses for now
-    best_response_index = combined_scores(query, mantium_responses, mantium_scores)
+    mantium_scores = [1 for _ in range(len(mantium_responses))]
     
+    best_response_index = combined_scores(query, mantium_responses, mantium_scores)
     best_mantium_response = mantium_data[best_response_index]
+    
     conversation.append({"role": "assistant", "content": best_mantium_response})
-
+    
     if api_type == "azure":
         response = create_azure_chat_completion(engine, conversation)
-    else:
+    elif api_type == "openai":
         response = create_openai_chat_completion(engine, conversation)
-
+    elif api_type == "anthropic":
+        response = create_anthropic_chat_completion(engine, conversation)
+        
     return response['choices'][0]['message']['content'], best_mantium_response
 
 
