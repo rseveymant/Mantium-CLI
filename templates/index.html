@@ -1,61 +1,71 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>AI Assistant</title>  
-</head>  
-<body>  
-    <h1>AI Assistant</h1>  
-    <form id="query-form">  
-        <label for="api_type">API Type:</label>  
-        <select id="api_type" name="api_type" onchange="updateApiFields()">  
-            <option value="openai">OpenAI</option>  
-            <option value="azure">Azure</option>  
-        </select><br><br>  
-        <div id="azure_fields" style="display: none;">  
-            <label for="azure_engine">Azure Engine:</label>  
-            <input type="text" id="azure_engine" name="azure_engine"><br><br>  
-            <label for="azure_api_key">Azure API Key:</label>  
-            <input type="text" id="azure_api_key" name="azure_api_key"><br><br>  
-            <label for="azure_api_base">Azure API Base:</label>  
-            <input type="text" id="azure_api_base" name="azure_api_base"><br><br>  
-        </div>  
-        <div id="openai_fields">  
-            <label for="openai_api_key">OpenAI API Key:</label>  
-            <input type="text" id="openai_api_key" name="openai_api_key" required><br><br>  
-        </div>  
-        <label for="mantium_app_id">Mantium App ID:</label>  
-        <input type="text" id="mantium_app_id" name="mantium_app_id" required><br><br>  
-        <label for="mantium_bearer_token">Mantium Bearer Token:</label>  
-        <input type="text" id="mantium_bearer_token" name="mantium_bearer_token" required><br><br>  
-        <label for="query">Your Question:</label>  
-        <input type="text" id="query" name="query" required><br><br>  
-        <button type="submit">Submit</button>  
-    </form>  
-    <div id="response">  
-        <h2>Best Mantium response:</h2>  
-        <p id="best_mantium_response"></p>  
-        <h2>Final response:</h2>  
-        <p id="final_response"></p>  
-    </div>  
-    <script>  
-        function updateApiFields() {  
-            const apiType = document.getElementById("api_type").value;  
-            if (apiType === "azure") {  
-                document.getElementById("azure_fields").style.display = "block";  
-                document.getElementById("openai_fields").style.display = "none";  
-                document.getElementById("openai_api_key").required = false;  
-            } else {  
-                document.getElementById("azure_fields").style.display = "none";  
-                document.getElementById("openai_fields").style.display = "block";  
-                document.getElementById("openai_api_key").required = true;  
-            }  
-        }  
-  
-        document.getElementById("query-form").addEventListener("submit", async (event) => {  
-            event.preventDefault();  
-            const api_type = document.getElementById("api_type").value;  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>AI Assistant</title>
+</head>
+<body>
+<h1>AI Assistant</h1>
+<form id="query-form">
+<label for="api_type">API Type:</label>  
+<select id="api_type" name="api_type" onchange="updateApiFields()">
+<option value="openai">OpenAI</option> 
+<option value="azure">Azure</option>
+<option value="anthropic">Anthropic</option>
+</select><br><br>
+<div id="azure_fields" style="display: none;">
+<label for="azure_engine">Azure Engine:</label>
+<input type="text" id="azure_engine" name="azure_engine"><br><br>
+<label for="azure_api_key">Azure API Key:</label>
+<input type="text" id="azure_api_key" name="azure_api_key"><br><br> 
+<label for="azure_api_base">Azure API Base:</label>
+<input type="text" id="azure_api_base" name="azure_api_base"><br><br>
+</div>
+<div id="openai_fields">
+<label for="openai_api_key">OpenAI API Key:</label>
+<input type="text" id="openai_api_key" name="openai_api_key" required><br><br> 
+</div>
+<div id="anthropic_fields" style="display: none;">
+<label for="anthropic_api_key">Anthropic API Key:</label>
+<input type="text" id="anthropic_api_key" name="anthropic_api_key"><br><br>  
+</div>
+<label for="mantium_app_id">Mantium App ID:</label>
+<input type="text" id="mantium_app_id" name="mantium_app_id" required><br><br> 
+<label for="mantium_bearer_token">Mantium Bearer Token:</label>
+<input type="text" id="mantium_bearer_token" name="mantium_bearer_token" required><br><br>
+<label for="query">Your Question:</label>
+<input type="text" id="query" name="query" required><br><br>
+<button type="submit">Submit</button>
+</form> 
+<div id="response">
+<h2>Best Mantium response:</h2>
+<p id="best_mantium_response"></p>
+<h2>Final response:</h2> 
+<p id="final_response"></p>
+</div> 
+<script>
+function updateApiFields() {
+const apiType = document.getElementById("api_type").value;
+if (apiType === "azure") {
+document.getElementById("azure_fields").style.display = "block";
+document.getElementById("openai_fields").style.display = "none";
+document.getElementById("anthropic_fields").style.display = "none";
+document.getElementById("openai_api_key").required = false;
+} else if (apiType === "openai") {   
+document.getElementById("azure_fields").style.display = "none";
+document.getElementById("openai_fields").style.display = "block"; 
+document.getElementById("anthropic_fields").style.display = "none";
+document.getElementById("openai_api_key").required = true; 
+} else if (apiType === "anthropic") {
+document.getElementById("anthropic_fields").style.display = "block";  
+document.getElementById("azure_fields").style.display = "none";
+document.getElementById("openai_fields").style.display = "none";
+}
+}  
+document.getElementById("query-form").addEventListener("submit", async (event) => {
+event.preventDefault();
+const api_type  = document.getElementById("api_type").value;  
             const azure_engine = document.getElementById("azure_engine").value;  
             const azure_api_key = document.getElementById("azure_api_key").value;  
             const azure_api_base = document.getElementById("azure_api_base").value;  
